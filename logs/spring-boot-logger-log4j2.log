@@ -1,0 +1,27 @@
+2020-11-04 16:44:07,302 INFO o.s.b.StartupInfoLogger [main] Starting SareetaApplication on Louises-MacBook-Pro.local with PID 28084 (started by wiezie in /Users/wiezie/IdeaProjects/Udacity/eCommerce Application)
+2020-11-04 16:44:07,319 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-11-04 16:44:08,700 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-11-04 16:44:08,791 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 80ms. Found 4 repository interfaces.
+2020-11-04 16:44:09,467 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b3849fc9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-04 16:44:09,833 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2020-11-04 16:44:09,864 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2020-11-04 16:44:09,884 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2020-11-04 16:44:09,884 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.19]
+2020-11-04 16:44:10,035 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2020-11-04 16:44:10,036 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2538 ms
+2020-11-04 16:44:10,302 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2020-11-04 16:44:10,408 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2020-11-04 16:44:10,460 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-11-04 16:44:10,570 INFO o.h.Version [main] HHH000412: Hibernate Core {5.3.10.Final}
+2020-11-04 16:44:10,572 INFO o.h.c.Environment [main] HHH000206: hibernate.properties not found
+2020-11-04 16:44:10,709 INFO o.h.a.c.r.j.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-11-04 16:44:10,841 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-11-04 16:44:11,688 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-04 16:44:12,429 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-04 16:44:12,521 INFO o.s.s.w.DefaultSecurityFilterChain [main] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5730b513, org.springframework.security.web.context.SecurityContextPersistenceFilter@1ce57bbb, org.springframework.security.web.header.HeaderWriterFilter@40d370fa, org.springframework.web.filter.CorsFilter@73e25780, org.springframework.security.web.authentication.logout.LogoutFilter@126ff1a1, com.example.demo.security.JWTAuthenticationFilter@1f4cb17b, com.example.demo.security.JWTAuthorizationFilter@280099a0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@15ee8861, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@26291192, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7aca299e, org.springframework.security.web.session.SessionManagementFilter@757c685d, org.springframework.security.web.access.ExceptionTranslationFilter@5cfe28e1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1d6a22dd]
+2020-11-04 16:44:12,688 INFO o.s.s.c.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2020-11-04 16:44:12,860 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2020-11-04 16:44:12,887 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-04 16:44:12,892 INFO o.s.b.StartupInfoLogger [main] Started SareetaApplication in 6.486 seconds (JVM running for 8.287)
