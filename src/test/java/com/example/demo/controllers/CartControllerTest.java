@@ -10,6 +10,8 @@ import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.model.requests.ModifyCartRequest;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
@@ -30,6 +32,8 @@ public class CartControllerTest {
     private final CartRepository cartRepository = mock(CartRepository.class);
 
     private final ItemRepository itemRepository = mock(ItemRepository.class);
+
+    private final ModifyCartRequest modifyCartRequest = mock(ModifyCartRequest.class);
 
     @Before
     public void setup(){
@@ -58,7 +62,20 @@ public class CartControllerTest {
         assertEquals(200,response.getStatusCodeValue());
         assertEquals("test",response.getBody().getUser().getUsername());
         assertEquals(2,response.getBody().getItems().size());
+    }
 
+    @Test
+    public void add_to_cart_id_not_found(){
+        modifyCartRequest.setItemId(1L);
+        ResponseEntity<Cart> response = cartController.addTocart(modifyCartRequest);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void add_to_cart_user_not_found(){
+        modifyCartRequest.setUsername("user");
+        ResponseEntity<Cart> responseEntity = cartController.addTocart(modifyCartRequest);
+        assertEquals(404,responseEntity.getStatusCodeValue());
     }
 
     @Test
