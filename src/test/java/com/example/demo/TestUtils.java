@@ -54,9 +54,19 @@ public class TestUtils {
     public static Item createItem(){
         Item item = new Item();
         item.setId(1L);
-        item.setName("Test Item");
+        item.setName("Test item");
         item.setDescription("This is test item");
-        item.setPrice(BigDecimal.valueOf(10.0));
+        item.setPrice(BigDecimal.valueOf(10));
         return item;
+    }
+
+    public static Cart createCart(Item item, User user){
+        Cart cart = new Cart();
+        cart.setId(0L);
+        cart.addItem(item);
+        cart.addItem(item);
+        cart.addItem(item);
+        cart.setUser(user);
+        return cart;
     }
 }

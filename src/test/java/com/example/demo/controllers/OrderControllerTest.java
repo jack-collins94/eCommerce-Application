@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.demo.TestUtils.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -32,45 +33,32 @@ public class OrderControllerTest {
 
     private User user;
 
+    private Item item;
+
     @Before
     public void setUp() {
         orderController = new OrderController();
         TestUtils.injectObjects(orderController, "userRepository", userRepository);
         TestUtils.injectObjects(orderController, "orderRepository", orderRepository);
 
-        user = new User();
-        user.setId(0L);
-        user.setUsername("test");
-        user.setPassword("password");
-
-        Item item = new Item();
-        item.setId(0L);
-        item.setDescription("submit order test");
-        item.setName("test-item");
-        item.setPrice(new BigDecimal(9));
-
-        cart = new Cart();
-        cart.setId(0L);
-        cart.addItem(item);
-        cart.addItem(item);
-        cart.addItem(item);
-        cart.setUser(user);
-
+        user = createUser();
+        item = createItem();
+        cart = createCart(item,user);
         user.setCart(cart);
-
-        when(userRepository.findByUsername("test")).thenReturn(user);
     }
 
     @Test
     public void submit_order_happy_path(){
+        when(userRepository.findByUsername("test")).thenReturn(user);
         ResponseEntity<UserOrder> responseEntity = orderController.submit(user.getUsername());
         assertEquals(200,responseEntity.getStatusCodeValue());
         assertNotNull(responseEntity);
-        assertEquals(BigDecimal.valueOf(27),responseEntity.getBody().getTotal());
+        assertEquals(BigDecimal.valueOf(30),responseEntity.getBody().getTotal());
     }
 
     @Test
     public void get_order_for_user_happy_path(){
+        when(userRepository.findByUsername("test")).thenReturn(user);
         List<UserOrder> orders = new ArrayList<>();
         ResponseEntity<UserOrder> newOrder = orderController.submit(user.getUsername());
         orders.add(newOrder.getBody());

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.demo.TestUtils.createItem;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -32,11 +33,7 @@ public class ItemControllerTest {
         itemController = new ItemController();
         TestUtils.injectObjects(itemController, "itemRepository", itemRepository);
 
-        item = new Item();
-        item.setId(1L);
-        item.setName("Test item");
-        item.setPrice(new BigDecimal(9.99));
-        item.setDescription("This is an item test description");
+        item = createItem();
 
         items.add(item);
         items.add(item);
