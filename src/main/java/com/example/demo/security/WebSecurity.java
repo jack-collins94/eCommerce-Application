@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+
 
 import static com.example.demo.security.SecurityConstants.SIGN_UP_URL;
 import static org.springframework.http.HttpMethod.POST;
@@ -17,11 +20,14 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public WebSecurity(UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,7 +37,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                .sessionManagement().sessionCreationPolicy(STATELESS);
+                .sessionManagement().sessionCreationPolicy(STATELESS)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
     }
 
     @Override

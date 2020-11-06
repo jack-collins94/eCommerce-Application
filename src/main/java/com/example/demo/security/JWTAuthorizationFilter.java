@@ -2,6 +2,11 @@ package com.example.demo.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.example.demo.controllers.CartController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +23,8 @@ import static com.example.demo.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
+    private static final Logger log = LoggerFactory.getLogger(JWTAuthorizationFilter.class);
+
     public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
@@ -32,14 +39,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
+            UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(request, response);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            chain.doFilter(request, response);
+
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) throws SignatureVerificationException {
         String token = request.getHeader(HEADER);
         if (token != null) {
             String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
@@ -52,6 +60,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             }
             return null;
         }
+
         return null;
     }
 }

@@ -25,7 +25,7 @@ import static java.lang.System.currentTimeMillis;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    @Autowired
+
     private AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
