@@ -39,28 +39,30 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
+        try {
             UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
 
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
+        }catch (Exception e){
+            log.info("Unauthorised access");
+        }
             chain.doFilter(request, response);
-
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) throws SignatureVerificationException {
+    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER);
-        if (token != null) {
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+            if (token != null) {
+                String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                        .build()
+                        .verify(token.replace(TOKEN_PREFIX, ""))
+                        .getSubject();
+
+                if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                }
+                return null;
             }
-            return null;
-        }
-
         return null;
     }
 }
